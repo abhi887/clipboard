@@ -1,0 +1,19 @@
+{
+  "name": "clipboard-back",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "cross-env DEBUG=clipboard-back:* node ./bin/www",
+    "start1": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  }
+}
