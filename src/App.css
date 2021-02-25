@@ -1,0 +1,50 @@
+body{
+  padding-top:4vh;
+  background-color:rgb(29, 29, 29);
+}
+
+.App {
+  text-align: center;
+}
+
+textarea{
+  min-height:70vh;
+  min-width:90vw;
+  max-height: 90vh;
+  max-width: 90vw;
+  text-align: center;
+  padding: 5vh;
+  background-color: transparent;
+  color:white;
+  border:1px solid rgba(255, 255, 255,0.0);
+  font-size: 160%;
+  outline:none;
+  resize: none;
+  size:auto;
+  font-family:monospace;
+}
+
+textarea::selection{
+  color:lime;
+}
+
+h3{
+  color:whitesmoke !important;
+  background-color: rgba(255, 255, 255,0.1);
+  padding:2vh;
+  border-radius: 10px;
+  min-width:10%;
+  max-width: fit-content;
+  text-decoration:underline !important;
+  /* box-shadow: 1px 1px 5px rgba(255, 255, 255,0.3); */
+}
+
+.buttons{
+  width:100%;
+  position:fixed;
+  bottom:30px;
+}
+
+#copyButton{
+  margin-right:4% !important;
+}
