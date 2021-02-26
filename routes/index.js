@@ -20,7 +20,7 @@ router.post("/setClipboard",function(req,res,next){
 
 router.get("/getClipboard",function(req,res,next){
   let clipboardName = req.query.clipboardName;
-  console.log(`clipboardName = ${clipboardName}`);
+  // console.log(`clipboardName = ${clipboardName}`);
   let index = db.indexOf(db.find(x=>x.name===clipboardName));
   if(index === -1){
     clipboard = {name:clipboardName,value:""};

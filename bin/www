@@ -20,6 +20,20 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+app.io = require('socket.io')(server,{
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+app.io.on("connection", socket => {
+  console.log("socket connected !");
+  socket.on("text_change",()=>{
+    console.log('text changed');
+    socket.broadcast.emit("refresh");
+  });
+});
+// app.io.attach(server);
 
 /**
  * Listen on provided port, on all network interfaces.
