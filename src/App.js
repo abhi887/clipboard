@@ -1,13 +1,11 @@
-import React,{useState} from 'react';
+import React from 'react';
 import './App.css';
 import { Button,TextArea,Container,Modal,Input } from 'semantic-ui-react';
-
+import {io} from 'socket.io-client';
 
 // var [clipboard,setState] = useState();
 
-
 class App extends React.Component{
-
   constructor(props){
     super();
     let clipboardName = "";
@@ -15,17 +13,24 @@ class App extends React.Component{
     catch(e){clipboardName = ""}
     // this.apiEnd = "http://localhost:3000";
     // this.apiEnd = "http://192.168.43.247:3000";
-    // this.apiEnd = "http://192.168.1.9:3000";
-    this.apiEnd = "https://clipboard-restapi.herokuapp.com";
+    this.apiEnd = "http://192.168.1.9:3000";
+    // this.apiEnd = "https://clipboard-restapi.herokuapp.com";
+    this.socket = io.connect(this.apiEnd);
     this.state={
       clipboard:"",
       clipboardName:clipboardName,
       modalOpen: clipboardName !== "" ? false : true,
     };
+    // setInterval(()=>{
+    //   this.startup();
+    // },5000);
     this.startup();
+    this.socket.on("refresh",()=>{
+      this.startup();
+    });
   }
 
-  startup = () =>{
+  startup = async () =>{
     if(this.state.clipboardName !== ""){
       fetch(this.apiEnd+`/getClipboard?clipboardName=${this.state.clipboardName}`)
       .then(res => res.json().then(r=>this.setState({clipboard:r})));
@@ -37,6 +42,7 @@ class App extends React.Component{
 
   textChanged = (e) => {
     console.log(e.target.value);
+    this.socket.emit("text_change",{});
     this.setState({clipboard:e.target.value});
     fetch(this.apiEnd+"/setClipboard",{
       method:'POST',
@@ -49,12 +55,22 @@ class App extends React.Component{
   }
 
   clearClipboard = (e) =>{
-    fetch(this.apiEnd+"/clearClipboard",{
-      method: 'DELETE',
-      body:JSON.stringify({"clipboardName":this.state.clipboardName})
+    // fetch(this.apiEnd+"/clearClipboard",{
+    //   method: 'DELETE',
+    //   body:JSON.stringify({"clipboardName":this.state.clipboardName})
+    // })
+    // .then(res => window.location = "")
+    // .catch(err=>console.error(`error on clearClipboard = ${err}`));
+    document.querySelector("textarea").value = "";
+    fetch(this.apiEnd+"/setClipboard",{
+      method:'POST',
+      body:JSON.stringify({"clipboard":"","clipboardName":this.state.clipboardName}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-    .then(res => window.location = "")
-    .catch(err=>console.error(`error on clearClipboard = ${err}`));
+    .then(res => res.json().then(r => console.log(r)));
+    this.socket.emit("text_change",{});
   }
 
   copyThis = (e) =>{
@@ -94,6 +110,7 @@ class App extends React.Component{
                 open={this.state.modalOpen}
                 size="mini"
                 dimmer="blurring"
+                className="dimmerModal"
               >
               <Modal.Header>Enter name for your clipboard</Modal.Header>
               <Modal.Content>

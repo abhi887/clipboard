@@ -48,3 +48,12 @@ h3{
 #copyButton{
   margin-right:4% !important;
 }
+
+.ui.mini.modal{
+  max-width: 95vw !important;
+}
+
+/* clipboard name modal background dimmer container */
+div.ui:nth-child(6){
+  max-width: 99vw !important;
+}
