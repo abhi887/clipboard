@@ -98,7 +98,7 @@ class App extends React.Component{
           <center>
             <Container fluid={true}>
               <h3 onClick={this.changeClipboardName}>{this.state.clipboardName}</h3>
-              <TextArea className="textArea" value={this.state.clipboard} onInput={this.textChanged} onChange={this.textChanged} placeholder="start typing to store something on clipboard ..."></TextArea>
+              <TextArea className="textArea" value={this.state.clipboard} onInput={this.textChanged} onChange={this.textChanged} placeholder="start typing to store something on clipboard ... and use same clipboard name to access on another device 🐱‍🚀"></TextArea>
               <br/>
               <div className="buttons">
                 <Button id="copyButton" onClick={this.copyThis} color="green">Copy 📋</Button>
