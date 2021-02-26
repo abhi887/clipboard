@@ -13,8 +13,8 @@ class App extends React.Component{
     catch(e){clipboardName = ""}
     // this.apiEnd = "http://localhost:3000";
     // this.apiEnd = "http://192.168.43.247:3000";
-    this.apiEnd = "http://192.168.1.9:3000";
-    // this.apiEnd = "https://clipboard-restapi.herokuapp.com";
+    // this.apiEnd = "http://192.168.1.9:3000";
+    this.apiEnd = "https://clipboard-restapi.herokuapp.com";
     this.socket = io.connect(this.apiEnd);
     this.state={
       clipboard:"",
